@@ -69,8 +69,8 @@ RUN . $SPACK_ROOT/share/spack/setup-env.sh && \
       spack env activate octopus-serial && \
       # display specs of upcoming spack installation:
       spack spec octopus@${OCT_VERSION} +netcdf+parmetis+arpack+cgal+pfft+python+likwid+libyaml+elpa+nlopt && \
-      # run the spack installation:
-      spack install octopus@${OCT_VERSION} +netcdf+parmetis+arpack+cgal+pfft+python+likwid+libyaml+elpa+nlopt && \
+      # run the spack installation (adding it to the environment):
+      spack install --add octopus@${OCT_VERSION} +netcdf+parmetis+arpack+cgal+pfft+python+likwid+libyaml+elpa+nlopt && \
       # run spack smoke tests for octopus. We get an error if any of the fails:
       spack test run --alias testname octopus && \
       # display output from smoke tests (just for information):
@@ -88,8 +88,8 @@ RUN . $SPACK_ROOT/share/spack/setup-env.sh && \
       spack env activate octopus-mpi && \
       # display specs of upcoming spack installation:
       spack spec octopus@${OCT_VERSION} +netcdf+parmetis+arpack+cgal+pfft+python+likwid+libyaml+elpa+nlopt +mpi && \
-      # run the spack installation:
-      spack install octopus@${OCT_VERSION} +netcdf+parmetis+arpack+cgal+pfft+python+likwid+libyaml+elpa+nlopt +mpi && \
+      # run the spack installation (adding it to the environment):
+      spack install --add octopus@${OCT_VERSION} +netcdf+parmetis+arpack+cgal+pfft+python+likwid+libyaml+elpa+nlopt +mpi && \
       # run spack smoke tests for octopus. We get an error if any of the fails:
       spack test run --alias testname octopus && \
       # display output from smoke tests (just for information):
