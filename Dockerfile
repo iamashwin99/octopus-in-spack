@@ -61,25 +61,6 @@ COPY spack/test/ $SPACK_ROOT/var/spack/repos/builtin/packages/octopus/test
 RUN ls -l $SPACK_ROOT/var/spack/repos/builtin/packages/octopus/test
 
 # Install and test serial and MPI versions of ocoptus via spack
-# # serial version
-
-RUN . $SPACK_ROOT/share/spack/setup-env.sh && \
-      # create a new environment for the serial version and activate it:
-      spack env create octopus-serial && \
-      spack env activate octopus-serial && \
-      # display specs of upcoming spack installation:
-      spack spec octopus@${OCT_VERSION} +netcdf+parmetis+arpack+cgal+pfft+python+likwid+libyaml+elpa+nlopt && \
-      # run the spack installation (adding it to the environment):
-      spack add octopus@${OCT_VERSION} +netcdf+parmetis+arpack+cgal+pfft+python+likwid+libyaml+elpa+nlopt && \
-      spack install && \
-      # run spack smoke tests for octopus. We get an error if any of the fails:
-      spack test run --alias test_serial octopus && \
-      # display output from smoke tests (just for information):
-      spack test results -l test_serial && \
-      # show which octopus version we use (for convenience):
-      spack load octopus && octopus --version && \
-      # deactivate the environment.
-      spack env deactivate
 
 # # MPI version
 
@@ -96,6 +77,25 @@ RUN . $SPACK_ROOT/share/spack/setup-env.sh && \
       spack test run --alias test_MPI octopus && \
       # display output from smoke tests (just for information):
       spack test results -l test_MPI && \
+      # show which octopus version we use (for convenience):
+      spack load octopus && octopus --version && \
+      # deactivate the environment.
+      spack env deactivate
+# # serial version
+
+RUN . $SPACK_ROOT/share/spack/setup-env.sh && \
+      # create a new environment for the serial version and activate it:
+      spack env create octopus-serial && \
+      spack env activate octopus-serial && \
+      # display specs of upcoming spack installation:
+      spack spec octopus@${OCT_VERSION} +netcdf+parmetis+arpack+cgal+pfft+python+likwid+libyaml+elpa+nlopt && \
+      # run the spack installation (adding it to the environment):
+      spack add octopus@${OCT_VERSION} +netcdf+parmetis+arpack+cgal+pfft+python+likwid+libyaml+elpa+nlopt && \
+      spack install && \
+      # run spack smoke tests for octopus. We get an error if any of the fails:
+      spack test run --alias test_serial octopus && \
+      # display output from smoke tests (just for information):
+      spack test results -l test_serial && \
       # show which octopus version we use (for convenience):
       spack load octopus && octopus --version && \
       # deactivate the environment.
