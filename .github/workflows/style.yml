@@ -14,7 +14,7 @@ jobs:
       steps:
       - uses: actions/checkout@v3
         with:
-          repository: 'https://github.com/spack/spack' # clone spack repo
+          repository: 'spack/spack' # clone spack repo
           fetch-depth: 0
       - uses: actions/setup-python@v2
         with:
