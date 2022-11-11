@@ -14,7 +14,6 @@ jobs:
       steps:
       - uses: actions/checkout@v3
         with:
-          repository: 'spack/spack' # clone spack repo
           fetch-depth: 0
       - uses: actions/setup-python@v2
         with:
@@ -28,11 +27,11 @@ jobs:
           # Need this for the git tests to succeed.
           git --version
           . .github/workflows/setup_git.sh
-# clone octopus-in-spack repo and copy the package.py file to the spack repo
-      - name: Clone octopus-in-spack repo
+# clone spack upstream repo and copy the new package.py file to the spack repo
+      - name: Clone spack upstream repo
         run: |
-          git clone https://github.com/fangohr/octopus-in-spack octopus-in-spack
-          cp octopus-in-spack/spack/package.py spack/var/spack/repos/builtin/packages/octopus/package.py
+          git clone https://github.com/spack/spack spack-upstream
+          cp spack/package.py spack-upstream/var/spack/repos/builtin/packages/octopus/package.py
       - name: Run style tests
         run: |
-            share/spack/qa/run-style-tests
+            spack-upstream/share/spack/qa/run-style-tests
