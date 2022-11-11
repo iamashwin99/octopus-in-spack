@@ -1,0 +1,41 @@
+name: style-check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  
+    build:
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup git configuration
+        run: |
+          # Need this for the git tests to succeed.
+          git --version
+          . .github/workflows/setup_git.sh
+# clone spack upstream repo and copy the new package.py file to the spack repo
+      - name: Clone spack upstream repo
+        run: |
+          git clone https://github.com/spack/spack spack-upstream
+          cp spack/package.py spack-upstream/var/spack/repos/builtin/packages/octopus/package.py
+
+      - name: Install Python packages
+        run: |
+          python3 -m pip install --upgrade pip six setuptools types-six click==8.0.2 'black==21.12b0' mypy isort clingo flake8
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: |
+            spack-upstream/pyproject.toml
+      - name: Run style tests
+        run: |
+            spack-upstream/share/spack/qa/run-style-tests
