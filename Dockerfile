@@ -88,7 +88,7 @@ RUN . $SPACK_ROOT/share/spack/setup-env.sh && \
       spack env create octopus-mpi && \
       spack env activate octopus-mpi && \
       # display specs of upcoming spack installation:
-      spack spec octopus@${OCT_VERSION} arpack=on cgal=on debug=off elpa=on libyaml=on likwid=on mpi=on netcdf=on nlopt=on parmetis=on pfft=on python=on && \
+      spack spec octopus@${OCT_VERSION} cgal=on  arpack=on debug=off elpa=on libyaml=on likwid=on mpi=on netcdf=on nlopt=on parmetis=on pfft=on python=on && \
       # run the spack installation (adding it to the environment):
       spack add octopus@${OCT_VERSION} arpack=on cgal=on debug=off elpa=on libyaml=on likwid=on mpi=on netcdf=on nlopt=on parmetis=on pfft=on python=on && \
       spack install && \
